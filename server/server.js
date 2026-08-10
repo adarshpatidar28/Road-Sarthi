@@ -14,6 +14,8 @@ import connectDB from './config/db.js';
 // 🛣️ Route Component Imports
 import complaintRoutes from './routes/complaintRoutes.js';
 import './workers/complaintWorker.js';
+import authRoutes from './routes/authRoutes.js'
+import adminRoutes from './routes/adminRoutes.js';
 
 // 2. Activate Configurations
 dotenv.config();
@@ -62,6 +64,8 @@ app.get('/api/v1/health', (req, res) => {
 
 // 🛣️ 7. Register Global API Business Logic Routes Pathways
 app.use('/api/v1/complaints', complaintRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/admin', adminRoutes); 
 
 // 8. Global Crash Guard Protection (Central Error Handler Middleware)
 app.use((err, req, res, next) => {
