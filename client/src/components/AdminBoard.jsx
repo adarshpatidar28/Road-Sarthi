@@ -63,7 +63,7 @@ export default function AdminBoard({ complaints, filters, setFilters, executeSta
                         item.aiAnalysis?.severity === 'Severe' ? 'bg-red-100 text-red-700 border border-red-200' :
                         item.aiAnalysis?.severity === 'Moderate' ? 'bg-amber-100 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-600'
                       }`}>
-                        {item.aiAnalysis?.severity}
+                        {item.aiAnalysis?.severity}p-0
                       </span>
                       <p className="text-[10px] text-slate-400 mt-1 font-medium font-sans leading-tight line-clamp-2">
                         {item.aiAnalysis?.analysisDetail || 'No detailed analysis summary mapped.'}

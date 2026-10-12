@@ -72,7 +72,7 @@ const ComplaintSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-// 🚀 CRITICAL RECRUITER STEP: Establish 2dsphere index for lightning-fast spatial queries
+
 ComplaintSchema.index({ location: '2dsphere' });
 
 const Complaint = mongoose.model('Complaint', ComplaintSchema);

@@ -9,8 +9,8 @@ router.post('/officer-login', async (req, res) => {
   const { username, password } = req.body;
 
   // 1. Establish strict server-side credentials for PWD officials
-  const OFFICIAL_USERNAME = "pwd_officer_admin";
-  const OFFICIAL_PASSWORD = "GovtSecurePassword@2026"; // High-strength master credential check
+  const OFFICIAL_USERNAME = "adarsh_patidar_28";
+  const OFFICIAL_PASSWORD = "Adarsh@123"; // High-strength master credential check
 
   // 2. Security Check: Validate incoming text data matching parameters
   if (username !== OFFICIAL_USERNAME || password !== OFFICIAL_PASSWORD) {

@@ -1,14 +1,10 @@
-// server/routes/complaintRoutes.js
 import express from 'express';
 import upload, { uploadToCloudinary } from '../middlewares/uploadMiddleware.js';
 import Complaint from '../models/Complaint.js';
-
-// Import our active native background processing task engine
 import { processComplaintBackground } from '../workers/complaintWorker.js';
 
 const router = express.Router();
 
-// 🚀 PATH: POST /api/v1/complaints/raise
 router.post('/raise', upload.single('image'), async (req, res) => {
   const { citizenName, issueDescription, longitude, latitude, manualAddress } = req.body;
 
@@ -20,41 +16,40 @@ router.post('/raise', upload.single('image'), async (req, res) => {
     return res.status(400).json({ success: false, message: 'GPS coordinates (longitude and latitude) are required.' });
   }
 
-  console.log('⚡ Streaming image file package directly to Cloudinary...');
+  console.log('Uploading Image on Cloudinary');
   const imageUrl = await uploadToCloudinary(req.file);
-  console.log(`📸 Asset hosted cleanly on Cloudinary: ${imageUrl}`);
+  console.log(`Image Uploaded on Cloudinay ${imageUrl}`);
 
-  // Save the report with an initial state of 'pending' inside MongoDB
+  // Saving the data in mongodb 
   const newComplaint = new Complaint({
     citizenName: citizenName || 'Anonymous Citizen',
     issueDescription: issueDescription || '',
     imageUrl,
     location: {
       type: 'Point',
-      coordinates: [parseFloat(longitude), parseFloat(latitude)], // GeoJSON format order: [longitude, latitude]
+      coordinates: [parseFloat(longitude), parseFloat(latitude)], // GeoJSON format : [longitude, latitude]
       manualAddress: manualAddress || ''
     },
     aiAnalysis: {
       status: 'pending',
       severity: 'Unassigned',
-      analysisDetail: 'Complaint captured successfully. Processing background AI validation routines...'
+      analysisDetail: 'Complaint received successfully. Processing the complaint...'
     }
   });
 
   await newComplaint.save();
 
-  // Convert the file buffer to a base64 string package for background delivery
+  // Convert the file buffer to a base64 string 
   const base64BufferString = req.file.buffer.toString('base64');
 
-  // Trigger our background worker to handle the heavy AI classification work in the background!
-  console.log(`⚡ Offloading complaint ID [${newComplaint._id}] to background execution thread...`);
+  // Ai analysis through our AI agent Gemini 3.5 flash model
+  console.log(` complaint ID [${newComplaint._id}]`);
   processComplaintBackground(newComplaint._id, base64BufferString, req.file.mimetype);
 
-  // Fast response return transmission loop back out to citizen client (HTTP 202 Accepted)
-  // The user gets their answer instantly, while the AI finishes scanning the image in the background!
+  // Get the response after ai analysis
   res.status(202).json({
     success: true,
-    message: 'Complaint submitted successfully! Image offloaded for background AI analysis.',
+    message: 'Complaint submitted successfully! Image gone for damage analysis.',
     data: newComplaint
   });
 });
