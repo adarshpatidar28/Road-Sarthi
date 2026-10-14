@@ -34,7 +34,7 @@ export default function ComplaintForm({ setView }) {
     formPayload.append('image', imageFile);
 
     try {
-      const res = await fetch('http://localhost:5000/api/v1/complaints/raise', {
+      const res = await fetch('https://road-sarthi.onrender.com/api/v1/complaints/raise', {
         method: 'POST',
         body: formPayload
       });

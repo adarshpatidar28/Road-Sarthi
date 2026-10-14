@@ -32,7 +32,7 @@ export default function StatusTracker({ complaints, setView }) {
               <div>
                 {/* Image Link Canvas Display Profile Frame */}
                 <div className="relative">
-                  <img src={`http://localhost:5000${item.imageUrl}`} alt="Defect Visual Canvas" className="h-40 w-full object-cover bg-slate-100" />
+                  <img src={`https://road-sarthi.onrender.com${item.imageUrl}`} alt="Defect Visual Canvas" className="h-40 w-full object-cover bg-slate-100" />
                   <div className="absolute top-2 left-2 flex gap-1.5">
                     <span className={`text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm ${
                       item.aiAnalysis?.severity === 'Severe' ? 'bg-red-600 text-white' :

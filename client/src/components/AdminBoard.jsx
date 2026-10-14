@@ -51,7 +51,7 @@ export default function AdminBoard({ complaints, filters, setFilters, executeSta
                 complaints.map(item => (
                   <tr key={item._id} className="hover:bg-slate-50/80 transition">
                     <td className="px-4 py-3">
-                      <img src={`http://localhost:5000${item.imageUrl}`} alt="Crater Media" className="h-11 w-18 object-cover rounded-lg border border-slate-200 shadow-sm bg-slate-50" />
+                      <img src={`https://road-sarthi.onrender.com${item.imageUrl}`} alt="Crater Media" className="h-11 w-18 object-cover rounded-lg border border-slate-200 shadow-sm bg-slate-50" />
                     </td>
                     <td className="px-4 py-3">
                       <p className="font-extrabold text-slate-900">{item.location?.manualAddress || 'Not Registered'}</p>

@@ -11,7 +11,7 @@ import StatusTracker from './components/StatusTracker';
 import OfficerLogin from './components/OfficerLogin';
 import AdminBoard from './components/AdminBoard';
 
-const socket = io('http://localhost:5000');
+const socket = io('https://road-sarthi.onrender.com');
 
 export default function App() {
   // Global State View Configurations
@@ -36,7 +36,7 @@ export default function App() {
 
   const synchronizePlatformData = async () => {
     try {
-      let API_ENDPOINT = 'http://localhost:5000/api/v1/admin/complaints';
+      let API_ENDPOINT = 'https://road-sarthi.onrender.com/api/v1/admin/complaints';
       
       // Inject query parameters when an active official sorts fields on the board array
       if (view === 'admin-board' && token) {
@@ -65,7 +65,7 @@ export default function App() {
 
   const handleStatusUpdateModification = async (id, statusOption, commentText) => {
     try {
-      await fetch(`http://localhost:5000/api/v1/admin/complaints/${id}/status`, {
+      await fetch(`https://road-sarthi.onrender.com/api/v1/admin/complaints/${id}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
